@@ -45,6 +45,12 @@
   
 10.  While your application is running, make a small, innocent change to some code (like a comment or spacing).  Observe that depending on the change, DevTools will restart your application.  
 
+11. The easiest way to have different configurations for different environments is to use spring profiles. See externalized configuration.
+	-https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
+	-This gives you a lot of flexibility, I am using it in my projects and it is extremly helpful. In your case you would have 3 profiles 'local', 'jenkins' and 'openshift'
+	-You then have 3 profile specific property files application-local.properties application-jenkins.properties application-openshift.properties
+	-There you can set the properties for the regarding environment. When you run the app you have to specify the profile to activate like -Dspring.profiles.active=jenkins
+
 Tips:
 - When running in Eclipse or STS, you can get automatic hot-swapping of many code changes without DevTools if you "debug" the application rather than "run" it.
 - If you encounter unusual issues in the application, it may be useful to remove the DevTools dependency to see if the problem persists.

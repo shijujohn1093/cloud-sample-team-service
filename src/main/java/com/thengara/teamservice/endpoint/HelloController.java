@@ -17,6 +17,7 @@ import com.thengara.teamservice.service.TeamService;
 @Controller
 public class HelloController {
 	
+	
 	private TeamService teamService;
 	
 	@Autowired
