@@ -1,28 +1,28 @@
 package com.thengara.teamservice.endpoint;
 
 import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.thengara.teamservice.entity.Player;
-import com.thengara.teamservice.entity.Team;
-import com.thengara.teamservice.service.TeamService;
-
 @Controller
 public class HelloController {
 	
+	@Value("${test.env.key}")
+	private String envKey;
 	
-	private TeamService teamService;
 	
+	private final Environment environment;
+	
+
+
 	@Autowired
-	public HelloController(TeamService teamService) {
-		this.teamService= teamService;
+	public HelloController(Environment environment) {
+		this.environment = environment;
 	}
 	
 	
@@ -33,15 +33,11 @@ public class HelloController {
 	}
 	
 
-	@PostConstruct
-	private void init() {
-		Set<Player> players = new java.util.HashSet<>();
-		players.add(new Player("Shju", "Goal Keeper"));
-		players.add(new Player("Ethan", "Defender"));
-		players.add(new Player("Bincy", "Mid Fielder"));
-		Team team = new Team("Thengara", "Delhi", "Delhi Club", players);
-
-		teamService.save(team);
+	
+	@RequestMapping("/testKey")
+	public String testKey() {
+		
+		return envKey +"~"+environment.getProperty("test.env.key");
 	}
 
 }
